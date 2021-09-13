@@ -2,6 +2,7 @@ import * as React from "react";
 import styles from "./SpFxHttpClientDemo.module.scss";
 import { ISpFxHttpClientDemoProps } from "./ISpFxHttpClientDemoProps";
 import { escape } from "@microsoft/sp-lodash-subset";
+import { DefaultButton } from "office-ui-fabric-react";
 
 export default class SpFxHttpClientDemo extends React.Component<
   ISpFxHttpClientDemoProps,
@@ -14,23 +15,29 @@ export default class SpFxHttpClientDemo extends React.Component<
 
     this.props.onGetListItems();
   };
-  private onAddListItemClicked = (event: React.MouseEvent<HTMLAnchorElement>): void => {
+  private onAddListItemClicked = (
+    event: React.MouseEvent<HTMLAnchorElement>
+  ): void => {
     event.preventDefault();
-  
+
     this.props.onAddListItem();
-  }
-  
-  private onUpdateListItemClicked = (event: React.MouseEvent<HTMLAnchorElement>): void => {
+  };
+
+  private onUpdateListItemClicked = (
+    event: React.MouseEvent<HTMLAnchorElement>
+  ): void => {
     event.preventDefault();
-  
+
     this.props.onUpdateListItem();
-  }
-  
-  private onDeleteListItemClicked = (event: React.MouseEvent<HTMLAnchorElement>): void => {
+  };
+
+  private onDeleteListItemClicked = (
+    event: React.MouseEvent<HTMLAnchorElement>
+  ): void => {
     event.preventDefault();
-  
+
     this.props.onDeleteListItem();
-  }
+  };
   public render(): React.ReactElement<ISpFxHttpClientDemoProps> {
     return (
       <div className={styles.spFxHttpClientDemo}>
@@ -38,36 +45,17 @@ export default class SpFxHttpClientDemo extends React.Component<
           <div className={styles.row}>
             <div className={styles.column}>
               <p className={styles.title}>SharePoint Content!</p>
-              <a
-                href="#"
-                className={styles.button}
-                onClick={this.onGetListItemsClicked}
-              >
-                <span className={styles.label}>Get Counrties</span>
-              </a>
+              <DefaultButton iconProps={{iconName: 'World'}} onClick={this.onGetListItemsClicked}>
+                Get Countries
+              </DefaultButton>
             </div>
           </div>
-          <a
-            href="#"
-            className={styles.button}
-            onClick={this.onAddListItemClicked}
-          >
-            <span className={styles.label}>Add List Item</span>
-          </a>
-          <a
-            href="#"
-            className={styles.button}
-            onClick={this.onUpdateListItemClicked}
-          >
-            <span className={styles.label}>Update List Item</span>
-          </a>
-          <a
-            href="#"
-            className={styles.button}
-            onClick={this.onDeleteListItemClicked}
-          >
-            <span className={styles.label}>Delete List Item</span>
-          </a>
+
+          <DefaultButton iconProps={{iconName: 'Add'}}onClick={this.onAddListItemClicked}>
+            Add List Item
+          </DefaultButton>
+          <DefaultButton iconProps={{iconName: 'Edit'}} onClick={this.onUpdateListItemClicked}>Update List Item</DefaultButton>
+          <DefaultButton iconProps={{iconName: 'Clear'}} onClick={this.onDeleteListItemClicked}>Delete List Item</DefaultButton>
 
           <div className={styles.row}>
             <ul className={styles.list}>

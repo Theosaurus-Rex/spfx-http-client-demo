@@ -12,6 +12,10 @@ import SpFxHttpClientDemo from './components/SpFxHttpClientDemo';
 import { ISpFxHttpClientDemoProps } from './components/ISpFxHttpClientDemoProps';
 import { SPHttpClient, SPHttpClientResponse } from '@microsoft/sp-http';
 import { ICountryListItem } from '../../models';
+import {
+  Environment,
+  EnvironmentType
+} from '@microsoft/sp-core-library';
 
 export interface ISpFxHttpClientDemoWebPartProps {
   description: string;
@@ -19,14 +23,28 @@ export interface ISpFxHttpClientDemoWebPartProps {
 
 export default class SpFxHttpClientDemoWebPart extends BaseClientSideWebPart<ISpFxHttpClientDemoWebPartProps> {
 
+  private get _isSharePoint(): boolean {
+    return (Environment.type === EnvironmentType.SharePoint || Environment.type === EnvironmentType.ClassicSharePoint);
+  }
+
   private _countries: ICountryListItem[] = [];
 
   private _onGetListItems = (): void => {
-    this._getListItems()
-      .then(response => {
-        this._countries = response;
-        this.render();
-      });
+    if (!this._isSharePoint) {
+      this._countries = [
+        { Id: '1', Title: 'Country 1' },
+        { Id: '2', Title: 'Country 2' },
+        { Id: '3', Title: 'Country 3' },
+        { Id: '4', Title: 'Country 4' }
+      ];
+      this.render();
+    } else {
+      this._getListItems()
+        .then(response => {
+          this._countries = response;
+          this.render();
+        });
+    }
   }
 
   private _getListItems(): Promise<ICountryListItem[]> {
