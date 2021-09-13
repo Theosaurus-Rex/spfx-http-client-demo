@@ -62,7 +62,7 @@ export default class SpFxHttpClientDemo extends React.Component<
               {this.props.spListItems &&
                 this.props.spListItems.map((list) => (
                   <li key={list.Id} className={styles.item}>
-                    <strong>Id:</strong> {list.Id}, <strong>Title:</strong>{" "}
+                    <strong>Id:</strong> {list.Id} <br/> <strong>Title:</strong>{" "}
                     {list.Title}
                   </li>
                 ))}
